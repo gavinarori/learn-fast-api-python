@@ -3,10 +3,13 @@ from fastapi import FastAPI, HTTPException, status
 import database
 import schemas
 import auth
+import products
 
 from bson import ObjectId
 
 app = FastAPI()
+
+app.include_router(products.router)
 
 @app.post("/register", response_model=schemas.UserOut)
 async def register(user: schemas.UserCreate):
