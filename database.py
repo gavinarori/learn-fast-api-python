@@ -16,3 +16,4 @@ if not MONGO_URL:
 client = AsyncIOMotorClient(MONGO_URL, tlsAllowInvalidCertificates=True)
 db = client["fastapi_auth_db"]
 users_collection = db["users"]
+products_collection = db["products"]
