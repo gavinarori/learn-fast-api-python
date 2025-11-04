@@ -1,4 +1,4 @@
-# products.py
+
 from fastapi import APIRouter, HTTPException, status
 from bson import ObjectId
 from typing import List
@@ -7,7 +7,7 @@ import schemas
 
 router = APIRouter(prefix="/products", tags=["Products"])
 
-# CREATE
+
 @router.post("/", response_model=schemas.ProductOut)
 async def create_product(product: schemas.ProductCreate):
     product_dict = product.dict()
@@ -16,7 +16,7 @@ async def create_product(product: schemas.ProductCreate):
     created_product["_id"] = str(created_product["_id"])
     return created_product
 
-# READ ALL
+
 @router.get("/", response_model=List[schemas.ProductOut])
 async def get_products():
     products = []
@@ -25,7 +25,7 @@ async def get_products():
         products.append(product)
     return products
 
-# READ ONE
+
 @router.get("/{product_id}", response_model=schemas.ProductOut)
 async def get_product(product_id: str):
     product = await database.products_collection.find_one({"_id": ObjectId(product_id)})
@@ -34,7 +34,7 @@ async def get_product(product_id: str):
     product["_id"] = str(product["_id"])
     return product
 
-# UPDATE
+
 @router.put("/{product_id}", response_model=schemas.ProductOut)
 async def update_product(product_id: str, update_data: schemas.ProductUpdate):
     update_dict = {k: v for k, v in update_data.dict().items() if v is not None}
@@ -48,7 +48,7 @@ async def update_product(product_id: str, update_data: schemas.ProductUpdate):
     product["_id"] = str(product["_id"])
     return product
 
-# DELETE
+
 @router.delete("/{product_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_product(product_id: str):
     result = await database.products_collection.delete_one({"_id": ObjectId(product_id)})
