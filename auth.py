@@ -1,9 +1,9 @@
-# auth.py
+
 from passlib.context import CryptContext
 from jose import jwt
 from datetime import datetime, timedelta
 
-# --- Password hashing setup ---
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def hash_password(password: str) -> str:
@@ -12,8 +12,8 @@ def hash_password(password: str) -> str:
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
-# --- JWT setup ---
-SECRET_KEY = "supersecretkey123"  # ⚠️ replace with env variable later
+
+SECRET_KEY = "supersecretkey123"  
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
